@@ -38,6 +38,7 @@ spl_autoload_register($autoload);
 // Controllers
 $homeController = new HomeController();
 $callController = new CallController(new MySql);
+$adminController = new AdminController();
 
 // ---------------------------------------------------------
 // Router
@@ -51,6 +52,9 @@ Router :: get('/call', function() use($callController) {
     }
 });
 
+Router :: get('/admin', function() use($adminController) {
+    $adminController -> execute();
+});
 
 // ---------------------------------------------------------
 // Tests
