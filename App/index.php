@@ -2,6 +2,9 @@
 
 // ---------------------------------------------------------
 // Imports
+use Controllers\HomeController;
+use Views\MainView;
+
 require 'Interfaces.php';
 
 // ---------------------------------------------------------
@@ -20,7 +23,18 @@ $autoload = function(string $className): void {
 spl_autoload_register($autoload);
 
 // ---------------------------------------------------------
+// Controllers
+$homeController = new HomeController();
+
+// ---------------------------------------------------------
 // Router
-Router :: get('/?', function($par): void {
-    echo 'home';
+
+Router :: get('/', function() use($homeController): void {
+    $homeController -> execute();
 });
+
+/*
+Router :: get('/home/?', function(): void {
+    echo "<h2>Home</h2>";
+});
+*/
