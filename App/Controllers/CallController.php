@@ -26,6 +26,7 @@ class CallController extends Controller {
     }
 
     public function execute(): void {
-        echo "Token :" . $_GET['token'];
+        $this -> view = new MainView('Call');
+        $this -> view -> render();
     }
 }
