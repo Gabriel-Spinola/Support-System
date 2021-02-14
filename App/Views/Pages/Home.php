@@ -28,7 +28,7 @@ if(isset($_POST['submit'])) {
         ) 
         and 
         $homeModel -> sendEmail(
-            $email, $message
+            $email, $token
         ),
         sucMsg: 'Your message has been sent successfully.',
         errMsg: 'Something went wrong.',
