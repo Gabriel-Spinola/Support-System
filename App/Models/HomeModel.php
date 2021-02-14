@@ -18,9 +18,15 @@ class HomeModel {
         );
     }
     
-    private function sendEmail() {
-        $this -> email -> AddAddress('sampleemail7000@gmail.com', 'Gabriel');
-        $this -> Format
+    private function sendEmail(string $email, string $token): bool {
+        $this -> email -> AddAddress($email, 'Gabriel');
+        $this -> email -> FormatEmail([
+            'subject' => 'Support System Message',
+            'body' => 'Hello, We received your message!' . 
+                      'your message link: <a href="' . BASE . 'call?token=' . $token . '"></a>'
+        ]);
+
+        return $this -> email -> SendEmail();
     }
 
     public function sendForm(string $email, string $message, string $token): bool {
@@ -32,6 +38,6 @@ class HomeModel {
         return $query -> execute([
             $message, $email,
             $token,
-        ]);
+        ]) && $this -> sendEmail($email, $token);
     }
 }

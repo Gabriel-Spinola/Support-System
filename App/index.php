@@ -13,6 +13,8 @@ const DATABASE = 'db_support_system';
 const USER = 'root';
 const PASSWORD = '';
 
+const BASE = 'http://localhost:7000/Support-System/App/';
+
 // ---------------------------------------------------------
 // Autoload
 $autoload = function(string $className): void {
@@ -34,6 +36,10 @@ $homeController = new HomeController();
 
 Router :: get('/', function() use($homeController): void {
     $homeController -> execute();
+});
+
+Router :: get('/call', function() {
+    echo 'h2';
 });
 
 /*
