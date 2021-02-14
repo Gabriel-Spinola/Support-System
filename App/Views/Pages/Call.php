@@ -1,5 +1,8 @@
 <?php
 
+    /// position -1 = client
+    /// position  1 = admin
+
     use Models\CallModel;
 
     $callModel = new CallModel(new MySql);

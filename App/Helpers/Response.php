@@ -47,10 +47,7 @@ class Response {
             );
         }
         else {
-            self :: simpleResponse(
-                response: 'error',
-                message: $errMsg
-            );
+            die ($errMsg);
         }
     }
 }

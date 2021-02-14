@@ -1,8 +1,12 @@
 <?php
 
+/// position -1 = client
+/// position  1 = admin
+
 namespace Models;
 
 use DBConnectionI;
+use Helpers\Response;
 
 class CallModel {
     private string $token;
@@ -32,8 +36,8 @@ class CallModel {
                 <p><strong>Admin: </strong><?php print $row['message'] ?></p>
 
             <?php else: ?>
-            
-                <p><strong>Admin: </strong><?php print $row['message'] ?></p>
+
+                <p><strong>You: </strong><?php print $row['message'] ?></p>
 
             <?php endif ?>
             
@@ -64,13 +68,32 @@ class CallModel {
 
                 <form method="post">
 
-                    <textarea></textarea> <br>
-                    <input type="submit" name="submit">
+                    <textarea name="message"></textarea> <br>
+                    <input type="submit" name="call-submit">
 
                 </form>
 
             <?php endif;
 
         endif;
+
+        if (isset($_POST['call-submit'])) {
+            $message = $_POST['message'];
+
+            $query2 = $this -> pdo -> connect() -> prepare(
+               "INSERT INTO `tb_call_answer`
+                VALUES (null, ?, ?, ?);"
+            );
+
+            Response :: detailResponse(
+                response: $query2 -> execute([
+                    $this -> token, $message, 1,
+                ]),
+                sucMsg: 'Your answer has been sent successfully',
+                errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
+            );
+
+            header('Location:' . BASE . 'call?token=' . $this -> token);
+        }
     }
 }
