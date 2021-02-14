@@ -9,15 +9,15 @@
 
 ?>
 
-<h2>Token: <?php print $_GET['token'] ?></h2>
+<h3>Your Token: <?php print $_GET['token'] ?></h3>
 
 <hr>
 
-<h2>Question: <?php print $pageInfo['message'] ?></h2>
+<h3>Your Question: <?php print $pageInfo['message'] ?></h3>
 
 <hr>
 
-<h2>In Response to your message:</h2>
+<h3>In Response to your message:</h3>
 
 <?php
 

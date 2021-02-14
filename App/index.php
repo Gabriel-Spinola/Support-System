@@ -44,7 +44,15 @@ Router :: get('/', function() use($homeController): void {
     $homeController -> execute();
 });
 
-// Call
+Router :: get('/call', function() use($callController) {
+    if (CallingTest()) {
+        $callController -> execute();
+    }
+});
+
+
+// ---------------------------------------------------------
+// Tests
 function CallingTest(): bool {
     global $callController;
 
@@ -56,15 +64,3 @@ function CallingTest(): bool {
 
     return false;
 }
-
-Router :: get('/call', function() use($callController) {
-    if (CallingTest()) {
-        $callController -> execute();
-    }
-});
-
-/*
-Router :: get('/home/?', function(): void {
-    echo "<h2>Home</h2>";
-});
-*/
