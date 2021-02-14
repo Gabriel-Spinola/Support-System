@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Mix;
-
 class MySql implements DBConnectionI {
     private $pdo;
 
