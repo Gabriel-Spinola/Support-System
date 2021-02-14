@@ -15,6 +15,35 @@ class CallModel {
 
     public function callResponse(): void {
         $query = $this -> pdo -> connect() -> prepare(
+            "SELECT * FROM `tb_call_answer`
+            WHERE call_id = ?
+            ORDER BY id ASC;"
+        );
+
+        $query -> execute([
+            $this -> token,
+        ]);
+
+        $data = $query -> fetchAll();
+
+        foreach($data as $key => $row):
+            if ($row['position'] == 1): ?>
+
+                <p><strong>Admin: </strong><?php print $row['message'] ?></p>
+
+            <?php else: ?>
+            
+                <p><strong>Admin: </strong><?php print $row['message'] ?></p>
+
+            <?php endif ?>
+            
+            <hr>
+
+        <?php endforeach;
+    }
+
+    public function callView(): void {
+        $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_call_answer`
             WHERE call_id = ?
             ORDER BY id DESC;"

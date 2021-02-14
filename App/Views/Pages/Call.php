@@ -15,3 +15,6 @@
 <h2>In Response to your message:</h2>
 
 <?php
+
+$callModel -> callView();
+$callModel -> callResponse();
