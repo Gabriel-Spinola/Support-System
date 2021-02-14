@@ -1,5 +1,7 @@
 <?php
 
+require 'Interfaces.php';
+
 // ---------------------------------------------------------
 // Constants
 const HOST = 'localhost';

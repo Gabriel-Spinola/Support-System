@@ -1,12 +1,8 @@
 <?php
 
-interface DBConnectionI {
-    public function connect(): PDO;
-}
-
 class MySql implements DBConnectionI {
     private PDO $pdo;
-    
+
     public function connect(): PDO {
         if ($this -> pdo == null) {
             try {
