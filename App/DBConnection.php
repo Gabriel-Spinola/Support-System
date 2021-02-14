@@ -4,9 +4,9 @@ interface DBConnectionI {
     public function connect(): PDO;
 }
 
-class MySql extends DBConnectionI {
+class MySql implements DBConnectionI {
     private PDO $pdo;
-
+    
     public function connect(): PDO {
         if ($this -> pdo == null) {
             try {
