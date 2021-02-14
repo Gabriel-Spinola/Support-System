@@ -2,10 +2,11 @@
 
 namespace Models;
 
-use Helpers\Response;
-
 class HomeModel {
-    public function sendForm(): void {
-        
+    public function sendForm(
+        string $email, string $message,
+        string $token
+    ): bool {
+        return true;
     }
 }

@@ -3,7 +3,6 @@
 // ---------------------------------------------------------
 // Imports
 use Controllers\HomeController;
-use Views\MainView;
 
 require 'Interfaces.php';
 

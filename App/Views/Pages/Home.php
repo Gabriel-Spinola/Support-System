@@ -1,3 +1,12 @@
+<?php
+
+    use Helpers\Response;
+    use Models\HomeModel;
+
+    $homeModel = new HomeModel();
+
+?>
+
 <h2>Hallo World</h2>
 
 <form method="post">
@@ -10,4 +19,12 @@
 
 if(isset($_POST['submit'])) {
     $email = $_POST['email'];
+    $message = $_POST['message'];
+    $token = md5(uniqid());
+
+    Response :: detailResponse(
+        response: $homeModel -> sendForm($email, $message, $token),
+        sucMsg: 'true',
+        errMsg: 'false',
+    );
 }
