@@ -3,7 +3,7 @@
     use Helpers\Response;
     use Models\HomeModel;
 
-    $homeModel = new HomeModel();
+    $homeModel = new HomeModel(new MySql);
 
 ?>
 
