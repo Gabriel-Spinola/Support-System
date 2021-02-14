@@ -22,9 +22,11 @@ if(isset($_POST['submit'])) {
     $message = $_POST['message'];
     $token = md5(uniqid());
 
+echo "<div style=\"display:none;\">";
     Response :: detailResponse(
         response: $homeModel -> sendForm($email, $message, $token),
         sucMsg: 'Your message has been sent successfully.',
         errMsg: 'Something went wrong.',
     );
+echo "</div>";
 }

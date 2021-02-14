@@ -25,7 +25,7 @@ class HomeModel {
             'body' => 'Hello, We received your message!' . 
             'your message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
         ]);
-
+        
         return $this -> email -> SendEmail();
     }
 
