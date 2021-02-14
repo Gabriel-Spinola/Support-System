@@ -20,6 +20,7 @@ class HomeModel {
     
     public function sendEmail(string $email, string $token): bool {
         $this -> email -> AddAddress($email, 'Gabriel');
+        
         $this -> email -> FormatEmail([
             'subject' => 'Support System Message',
             'body' => 'Hello, We received your message!' . 
