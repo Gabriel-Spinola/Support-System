@@ -87,13 +87,14 @@ class CallModel {
 
             Response :: detailResponse(
                 response: $query2 -> execute([
-                    $this -> token, $message, 1,
+                    $this -> token, $message, -1,
                 ]),
-                sucMsg: 'Your answer has been sent successfully',
+                sucMsg: '<script>alert(\'Your answer has been sent successfully\')</script>',
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
 
             header('Location:' . BASE . 'call?token=' . $this -> token);
+            die;
         }
     }
 }
