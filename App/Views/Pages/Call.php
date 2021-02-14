@@ -19,5 +19,5 @@
 
 <?php
 
-$callModel -> callView();
 $callModel -> callResponse();
+$callModel -> callView();
