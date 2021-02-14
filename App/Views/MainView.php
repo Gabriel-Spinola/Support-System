@@ -7,7 +7,7 @@ class MainView {
         private string $fileName,
     ) { }
 
-    public function render(): void {
+    public function render(array $pageInfo = []): void {
         include 'Pages/' . $this -> fileName . '.php';
     }
 }
