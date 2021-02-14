@@ -18,7 +18,7 @@ class Router
 			$path = '/';
 		}
 
-		if ($url[0] != '/') {
+		if (@$url[0] != '/') {
 			$url = '/' . $url;
 		}
 
