@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Guilherme C. Grillo (from Danki Code).
+*/
 
 class Router
 {

@@ -1,5 +1,7 @@
 <?php
 
+// ---------------------------------------------------------
+// Imports
 require 'Interfaces.php';
 
 // ---------------------------------------------------------
@@ -16,3 +18,9 @@ $autoload = function(string $className): void {
 };
 
 spl_autoload_register($autoload);
+
+// ---------------------------------------------------------
+// Router
+Router :: get('/?', function($par): void {
+    echo 'home';
+});
