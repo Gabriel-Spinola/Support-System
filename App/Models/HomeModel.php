@@ -18,7 +18,7 @@ class HomeModel {
         );
     }
     
-    private function sendEmail(string $email, string $token): bool {
+    public function sendEmail(string $email, string $token): bool {
         $this -> email -> AddAddress($email, 'Gabriel');
         $this -> email -> FormatEmail([
             'subject' => 'Support System Message',
@@ -38,6 +38,6 @@ class HomeModel {
         return $query -> execute([
             $message, $email,
             $token,
-        ]) && $this -> sendEmail($email, $token);
+        ]);
     }
 }

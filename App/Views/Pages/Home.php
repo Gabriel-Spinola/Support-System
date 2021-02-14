@@ -23,7 +23,13 @@ if(isset($_POST['submit'])) {
     $token = md5(uniqid());
 
     Response :: detailResponse(
-        response: $homeModel -> sendForm($email, $message, $token),
+        response: $homeModel -> sendForm(
+            $email, $message, $token
+        ) 
+        and 
+        $homeModel -> sendEmail(
+            $email, $message
+        ),
         sucMsg: 'Your message has been sent successfully.',
         errMsg: 'Something went wrong.',
     );
