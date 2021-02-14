@@ -35,7 +35,7 @@ spl_autoload_register($autoload);
 // ---------------------------------------------------------
 // Controllers
 $homeController = new HomeController();
-$callController = new CallController();
+$callController = new CallController(new MySql);
 
 // ---------------------------------------------------------
 // Router
@@ -48,7 +48,7 @@ Router :: get('/', function() use($homeController): void {
 function CallingTest(): bool {
     global $callController;
 
-    if ($_GET['token'] && $callController -> tokenExists()) {
+    if (isset($_GET['token']) && $callController -> tokenExists()) {
         return true;
     } else {
         die ('You need a correct token');
