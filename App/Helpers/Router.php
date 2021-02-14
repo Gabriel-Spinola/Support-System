@@ -3,6 +3,8 @@
  * @author Guilherme C. Grillo (from Danki Code).
 */
 
+namespace Helpers;
+
 class Router
 {
 	public static $executed;
