@@ -16,6 +16,10 @@ const PASSWORD = '';
 // ---------------------------------------------------------
 // Autoload
 $autoload = function(string $className): void {
+    if ($className == 'Email') {
+        require 'Imports/phpMailer/vendor/autoload.php';
+    }
+
     require $className . '.php';
 };
 
