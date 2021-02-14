@@ -24,7 +24,7 @@ if(isset($_POST['submit'])) {
 
     Response :: detailResponse(
         response: $homeModel -> sendForm($email, $message, $token),
-        sucMsg: 'true',
-        errMsg: 'false',
+        sucMsg: 'Your message has been sent successfully.',
+        errMsg: 'Something went wrong.',
     );
 }
