@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * "Call" is the customer interaction
+*/
+
 // ---------------------------------------------------------
 // Imports
 use Controllers\HomeController;
+use Controllers\CallController;
 
 require 'Interfaces.php';
 
@@ -30,6 +35,7 @@ spl_autoload_register($autoload);
 // ---------------------------------------------------------
 // Controllers
 $homeController = new HomeController();
+$callController = new CallController();
 
 // ---------------------------------------------------------
 // Router
@@ -38,8 +44,24 @@ Router :: get('/', function() use($homeController): void {
     $homeController -> execute();
 });
 
-Router :: get('/call', function() {
-    echo 'h2';
+// Call
+
+function CallingTest(): bool {
+    global $callController;
+
+    if ($_GET['token'] && $callController -> tokenExists()) {
+        return true;
+    } else {
+        die ('You need a correct token');
+    }
+
+    return false;
+}
+
+Router :: get('/call', function() use($callController) {
+    if (CallingTest()) {
+
+    }
 });
 
 /*
