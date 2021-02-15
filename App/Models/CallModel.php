@@ -9,7 +9,7 @@ use DBConnectionI;
 use Helpers\Response;
 
 class CallModel {
-    private string $token;
+    public string $token;
 
     public function __construct(
         private DBConnectionI $pdo,

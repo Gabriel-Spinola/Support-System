@@ -36,15 +36,13 @@ class AdminModel {
 
             <?php
 
-                $token = $_GET['token'] ?? '';
-
                 $isAnswered = $this -> pdo -> connect() -> prepare(
                    "SELECT * FROM `tb_call_answer`
                     WHERE call_id = ?;"
                 );
 
                 $isAnswered -> execute([
-                    $token,
+                    $row['token'],
                 ]);
 
                 if ($isAnswered -> rowCount() >= 1)
@@ -81,7 +79,7 @@ class AdminModel {
     public function sendAnswer(): void {
         if (isset($_POST['new-call-submit'])) {
             $token = $_POST['token'];
-            $email = $_POST['email'];
+            $mail = $_POST['email'];
             $message = $_POST['message'];
 
             $query = $this -> pdo -> connect() -> prepare(
@@ -95,10 +93,13 @@ class AdminModel {
                     1
                 ])
                 and
-                $this -> sendEmail($email, $token),
+                $this -> sendEmail($mail, $token),
                 sucMsg: '<script>alert(\'Your answer has been sent successfully\')</script>',
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
+
+            header('Location:' . BASE . 'admin');
+            die;
         }
     }
 }
