@@ -9,9 +9,18 @@ use DBConnectionI;
 use Helpers\Response;
 
 class AdminModel {
+    private object $email;
+
     public function __construct(
         private DBConnectionI $pdo
-    ) {}
+    ) {
+        $this -> email = new \Email(
+            host: 'smtp.gmail.com',
+            username: 'sampleemail7000@gmail.com',
+            password: 'Sample.123',
+            name: 'Gabriel'
+        );
+    }
 
     public function getCalls(): void {
         $query = $this -> pdo -> connect() -> prepare(
@@ -63,7 +72,7 @@ class AdminModel {
         $this -> email -> FormatEmail([
             'subject' => 'Support System Message',
             'body' => 'Hello, Someone answered you!' . 
-            'message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
+            ' message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
         ]);
         
         return $this -> email -> SendEmail();
