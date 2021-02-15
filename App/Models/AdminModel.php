@@ -33,7 +33,7 @@ class AdminModel {
             <?php
 
                 $isAnswered = $this -> pdo -> connect() -> prepare(
-                "SELECT * FROM `tb_call_answer`
+                   "SELECT * FROM `tb_call_answer`
                     WHERE call_id = ?;"
                 );
 
