@@ -103,7 +103,7 @@ class AdminModel {
     public function lastInteractionsResponse() {
         $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_call_answer`
-            WHERE position = -1
+            WHERE position = -1 AND STATUS = 0 -- STATUS: Check if the question has already been answered
             ORDER BY id DESC;"
         );
 
