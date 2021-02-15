@@ -89,7 +89,7 @@ class CallModel {
                 response: $query2 -> execute([
                     $this -> token, $message, -1,
                 ]),
-                sucMsg: '<script>alert(\'Your answer has been sent successfully\')</script>',
+                sucMsg: '<script>alert(\'Your message has been sent successfully\')</script>',
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
 
