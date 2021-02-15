@@ -11,8 +11,6 @@ use EmailSendingI;
 use Helpers\Response;
 
 class AdminModel {
-    // private object $email;
-
     public function __construct(
         private DBConnectionI $pdo,
         private EmailSendingI $email,
