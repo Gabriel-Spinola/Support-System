@@ -57,9 +57,17 @@ class AdminModel {
         <?php endforeach;
     }
 
-    // private function sendEmail(): bool {
-    //     return false;
-    // }
+    private function sendEmail(string $email, string | int $token): bool {
+        $this -> email -> AddAddress($email, 'Gabriel');
+        
+        $this -> email -> FormatEmail([
+            'subject' => 'Support System Message',
+            'body' => 'Hello, Someone answered you!' . 
+            'message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
+        ]);
+        
+        return $this -> email -> SendEmail();
+    }
 
     public function sendAnswer(): void {
         if (isset($_POST['new-call-submit'])) {
@@ -76,7 +84,9 @@ class AdminModel {
                 $query -> execute([
                     $token, $message,
                     1
-                ]),
+                ])
+                and
+                $this -> sendEmail($email, $token),
                 sucMsg: '<script>alert(\'Your answer has been sent successfully\')</script>',
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
