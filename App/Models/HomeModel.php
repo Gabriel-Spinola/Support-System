@@ -24,7 +24,7 @@ class HomeModel {
         $this -> email -> FormatEmail([
             'subject' => 'Support System Message',
             'body' => 'Hello, We received your message!' . 
-            'message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
+            ' message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
         ]);
         
         return $this -> email -> SendEmail();
