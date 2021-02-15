@@ -25,3 +25,5 @@
 <hr>
 
 <h3>Last Interactions:</h3>
+
+<?php $adminModel -> lastInteractionsResponse() ?>

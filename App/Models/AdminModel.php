@@ -5,6 +5,7 @@
 
 namespace Models;
 
+use Closure;
 use DBConnectionI;
 use EmailSendingI;
 use Helpers\Response;
@@ -32,7 +33,7 @@ class AdminModel {
             <?php
 
                 $isAnswered = $this -> pdo -> connect() -> prepare(
-                   "SELECT * FROM `tb_call_answer`
+                "SELECT * FROM `tb_call_answer`
                     WHERE call_id = ?;"
                 );
 
@@ -42,6 +43,7 @@ class AdminModel {
 
                 if ($isAnswered -> rowCount() >= 1)
                     continue;
+                
             ?>
 
             <hr>
@@ -96,5 +98,31 @@ class AdminModel {
             header('Location:' . BASE . 'admin');
             die;
         }
+    }
+
+    public function lastInteractionsResponse() {
+        $query = $this -> pdo -> connect() -> prepare(
+           "SELECT * FROM `tb_call_answer`
+            WHERE position = -1
+            ORDER BY id DESC;"
+        );
+
+        $query -> execute();
+
+        $data = $query -> fetchAll();
+
+        foreach ($data as $key => $row): ?>
+
+            <h4><?php print $row['message'] ?></h4>
+
+            <form method="POST">
+            
+                <textarea name="message" placeholder="Your Answer..."></textarea> <br>
+                <input type="submit" name="last-call-submit" value="Reply!">
+                <input type="hidden" name="token" value="<?php print $row['call_id'] ?>">
+
+            </form>
+
+        <?php endforeach;
     }
 }
