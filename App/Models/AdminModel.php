@@ -81,7 +81,7 @@ class AdminModel {
 
             $query = $this -> pdo -> connect() -> prepare(
                "INSERT INTO `tb_call_answer`
-                VALUES (null, ?, ?, ?)"
+                VALUES (null, ?, ?, ?, 1)"
             );
 
             Response :: detailResponse(
@@ -103,7 +103,7 @@ class AdminModel {
     public function lastInteractionsResponse() {
         $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_call_answer`
-            WHERE position = -1 AND STATUS = 0 -- STATUS: Check if the question has already been answered
+            WHERE position = -1 AND `status` = 0 -- STATUS: Check if the question has already been answered
             ORDER BY id DESC;"
         );
 

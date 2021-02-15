@@ -82,7 +82,7 @@ class CallModel {
 
             $query2 = $this -> pdo -> connect() -> prepare(
                "INSERT INTO `tb_call_answer`
-                VALUES (null, ?, ?, ?);"
+                VALUES (null, ?, ?, ?, 0);"
             );
 
             Response :: detailResponse(
