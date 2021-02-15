@@ -133,6 +133,14 @@ class AdminModel {
             $token = $_POST['token'];
             $message = $_POST['message'];
             $id = $_POST['id'];
+
+            $mail = $this -> pdo -> connect() -> prepare(
+               "SELECT * FROM `tb_calls`
+                WHERE token = ?"
+            );
+
+            $mail -> execute([$token]);
+            $mail = $mail -> fetch()['email'];
         
             $this -> pdo -> connect() -> exec(
                "UPDATE `tb_call_answer`
@@ -148,7 +156,9 @@ class AdminModel {
             Response :: detailResponse(
                 $query -> execute([
                     $token, $message,
-                ]),
+                ])
+                and
+                $this -> sendEmail($mail, $token),
                 sucMsg: '<script>alert(\'Your answer has been sent successfully\')</script>',
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
