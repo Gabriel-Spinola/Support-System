@@ -3,20 +3,13 @@
 namespace Models;
 
 use DBConnectionI;
+use EmailSendingI;
 
 class HomeModel {
-    private object $email;
-
     public function __construct(
         private DBConnectionI $pdo,
-    ) {
-        $this -> email = new \Email(
-            host: 'smtp.gmail.com',
-            username: 'sampleemail7000@gmail.com',
-            password: 'Sample.123',
-            name: 'Gabriel'
-        );
-    }
+        private EmailSendingI $email,
+    ) {}
     
     public function sendEmail(string $email, string $token): bool {
         $this -> email -> AddAddress($email, 'Gabriel');

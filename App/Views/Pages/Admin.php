@@ -5,7 +5,15 @@
 
     use Models\AdminModel;
 
-    $adminModel = new AdminModel(new MySql);
+    $adminModel = new AdminModel(
+        new MySql,
+        $this -> email = new \Email(
+            host: 'smtp.gmail.com',
+            username: 'sampleemail7000@gmail.com',
+            password: 'Sample.123',
+            name: 'Gabriel'
+        )
+    );
 
 ?>
 

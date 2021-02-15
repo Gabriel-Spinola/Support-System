@@ -3,7 +3,15 @@
     use Helpers\Response;
     use Models\HomeModel;
 
-    $homeModel = new HomeModel(new MySql);
+    $homeModel = new HomeModel(
+        new MySql,
+        $this -> email = new \Email(
+            host: 'smtp.gmail.com',
+            username: 'sampleemail7000@gmail.com',
+            password: 'Sample.123',
+            name: 'Gabriel'
+        )
+    );
 
 ?>
 

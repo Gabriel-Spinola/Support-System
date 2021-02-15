@@ -6,21 +6,16 @@
 namespace Models;
 
 use DBConnectionI;
+use EmailSendingI;
 use Helpers\Response;
 
 class AdminModel {
-    private object $email;
+    // private object $email;
 
     public function __construct(
-        private DBConnectionI $pdo
-    ) {
-        $this -> email = new \Email(
-            host: 'smtp.gmail.com',
-            username: 'sampleemail7000@gmail.com',
-            password: 'Sample.123',
-            name: 'Gabriel'
-        );
-    }
+        private DBConnectionI $pdo,
+        private EmailSendingI $email,
+    ) {}
 
     public function getCalls(): void {
         $query = $this -> pdo -> connect() -> prepare(

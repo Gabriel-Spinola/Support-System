@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use DBConnectionI;
+use EmailSendingI;
 use Views\MainView;
 
 class CallController extends Controller {
