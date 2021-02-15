@@ -113,16 +113,47 @@ class AdminModel {
 
         foreach ($data as $key => $row): ?>
 
-            <h4><?php print $row['message'] ?></h4>
+            <p>Click <a href="<?php echo BASE . 'call?token=' . $row['call_id'] ?>">Here</a> to see the call</p>
+            <h4><?php print 'id: ' . $row['id'] ?> - <?php print $row['message'] ?></h4>
 
             <form method="POST">
             
                 <textarea name="message" placeholder="Your Answer..."></textarea> <br>
                 <input type="submit" name="last-call-submit" value="Reply!">
-                <input type="hidden" name="token" value="<?php print $row['call_id'] ?>">
+                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                <input type="hidden" name="token" value="<?php echo $row['call_id'] ?>">
 
             </form>
 
         <?php endforeach;
+    }
+
+    public function sendLastInteractionResponse() {
+        if (isset($_POST['last-call-submit'])) {
+            $token = $_POST['token'];
+            $message = $_POST['message'];
+            $id = $_POST['id'];
+        
+            $this -> pdo -> connect() -> exec(
+               "UPDATE `tb_call_answer`
+                SET `status` = 1
+                WHERE id = $id;"
+            );
+
+            $query = $this -> pdo -> connect() -> prepare(
+               "INSERT INTO `tb_call_answer`
+                VALUES (null, ?, ?, 1, 1);"
+            );
+
+            Response :: detailResponse(
+                $query -> execute([
+                    $token, $message,
+                ]),
+                sucMsg: '<script>alert(\'Your answer has been sent successfully\')</script>',
+                errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
+            );
+
+            header('Location:' . BASE . 'admin');
+        }
     }
 }
