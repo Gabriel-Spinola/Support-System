@@ -41,7 +41,7 @@ $callController = new CallController(new MySql);
 $adminController = new AdminController();
 
 // ---------------------------------------------------------
-// Router
+// Routes
 Router :: get('/', function() use($homeController): void {
     $homeController -> execute();
 });
