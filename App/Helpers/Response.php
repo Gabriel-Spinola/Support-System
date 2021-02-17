@@ -4,7 +4,17 @@ namespace Helpers;
 
 use InvalidArgumentException;
 
+/**
+ * @Namespace Helpers
+ * 
+ * @Use InvalidArgumentsException
+ * 
+ * - Get a response to test safely features, and Also giving a log for the client
+*/
 class Response {
+    /**
+     * Client log 
+    */
     public static function simpleResponse($response, $message): void { ?>
 
         <?php if ($response == 'success'): ?>
@@ -39,6 +49,9 @@ class Response {
 
     <?php }
 
+    /**
+     * Test and log 
+    */
     public static function detailResponse(bool $response, string $sucMsg, string $errMsg) {
         if ($response) {
             self :: simpleResponse(
