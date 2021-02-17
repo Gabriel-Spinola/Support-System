@@ -97,6 +97,12 @@ class AdminModel {
         return $this -> email -> SendEmail();
     }
 
+    /**
+     * if some adm send a answer:
+     * - get the client token, email and message.
+     * - Insert the answer in the database, and set status to answered.
+     * - Test execution and send email.
+    */
     public function sendAnswer(): void {
         if (isset($_POST['new-call-submit'])) {
             $token = $_POST['token'];
@@ -119,6 +125,7 @@ class AdminModel {
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
 
+            // Refresh Page
             header('Location:' . BASE . 'admin');
             die;
         }
