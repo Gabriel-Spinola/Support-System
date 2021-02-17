@@ -79,7 +79,12 @@ class AdminModel {
 
         <?php endforeach;
     }
-    
+
+    /**
+     * - Set email address
+     * - Format the email
+     * - Try to send it, if works returns true else returns false
+    */
     private function sendEmail(string $email, string | int $token): bool {
         $this -> email -> AddAddress($email, 'Gabriel');
         
