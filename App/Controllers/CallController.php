@@ -11,6 +11,11 @@ use Views\MainView;
  * @From Controller
  * 
  * @Use DataBaseConnection and MainView
+ * 
+ * - Get Token from url
+ * - Check if the token exists
+ * - Get the message of the token
+ * - if everything works render
 */
 class CallController extends Controller {
     private string $token;
@@ -21,6 +26,9 @@ class CallController extends Controller {
         $this -> token = $_GET['token'] ?? '';
     }
 
+    /**
+     * Check if the token exits
+    */
     public function tokenExists(): bool {
         $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_calls`
@@ -34,6 +42,10 @@ class CallController extends Controller {
         return $query -> rowCount() == 1;
     }
 
+    /**
+     * Get the message of the token
+     * and return it
+    */
     public function getMessage(): string {
         $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_calls`
@@ -47,6 +59,10 @@ class CallController extends Controller {
         return $query -> fetch()[1];
     }
 
+    /**
+     * render the project and send the
+     * message to the CallView. 
+    */
     public function execute(): void {
         $this -> view = new MainView('Call');
 
