@@ -3,9 +3,15 @@
 namespace Controllers;
 
 use DBConnectionI;
-use EmailSendingI;
 use Views\MainView;
 
+/**
+ * @namespace Controllers
+ * @Receive $view, $model, execute(): void
+ * @From Controller
+ * 
+ * @Use DataBaseConnection and MainView
+*/
 class CallController extends Controller {
     private string $token;
 

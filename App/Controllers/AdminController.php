@@ -8,6 +8,8 @@ use Views\MainView;
  * @namespace Controllers
  * @Receive $view, $model, execute(): void
  * @From Controller
+ * 
+ * @Use MainView class
 */
 class AdminController extends Controller {
     /**
