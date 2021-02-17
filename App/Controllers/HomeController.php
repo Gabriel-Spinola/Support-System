@@ -12,6 +12,13 @@ use Views\MainView;
  * @Use MainView class
 */
 class HomeController extends Controller {
+    /**
+     *### **Send page to the client With custom info**
+     * 
+     * @return Page-View
+     * 
+     * - Rendering
+    */
     public function execute(): void {
         $this -> view = new MainView('Home');
         $this -> view -> render();
