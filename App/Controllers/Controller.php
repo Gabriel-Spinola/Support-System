@@ -9,5 +9,6 @@ abstract class Controller {
     /** Reference to a model class */
     protected object $model;
 
+    /** Execution function */
     public abstract function execute(): void;
 }
