@@ -18,7 +18,7 @@ use Views\MainView;
  * - if everything works render
 */
 class CallController extends Controller {
-    private string $token;
+    private string | int $token;
 
     public function __construct(
         private DBConnectionI $pdo,

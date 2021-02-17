@@ -5,18 +5,35 @@
 
 namespace Models;
 
-use Closure;
 use DBConnectionI;
 use EmailSendingI;
 use Helpers\Response;
 
+/**
+ * @namespace Controllers
+ * @Receive $view, $model, execute(): void
+ * @From Controller
+ * 
+ * @Use DataBaseConnection, EmailSending, Response
+ * 
+ * - Get Calls and fetch it in a form
+ * - Send adm answer to the client, and also sending a email to the client
+ * - Get the clients responses
+ * - Answer that clients response (creating a chat).
+*/
 class AdminModel {
     public function __construct(
         private DBConnectionI $pdo,
         private EmailSendingI $email,
     ) {}
 
+    /**
+     * - Fetch all data of the tb_calls
+     * - Check if the message is already answered
+     * - if not create a form 
+    */
     public function getCalls(): void {
+        // Get data and order by id in decreasing way
         $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_calls`
             ORDER BY id DESC;"
@@ -26,10 +43,12 @@ class AdminModel {
 
         $data = $query -> fetchAll();
 
+        // Get data in $row
         foreach ($data as $key => $row): ?>
 
             <?php
 
+                // get all data where call_id == client token
                 $isAnswered = $this -> pdo -> connect() -> prepare(
                    "SELECT * FROM `tb_call_answer`
                     WHERE call_id = ?;"
@@ -38,27 +57,29 @@ class AdminModel {
                 $isAnswered -> execute([
                     $row['token'],
                 ]);
-
+                    
+                // check if the message is already answered
                 if ($isAnswered -> rowCount() >= 1)
                     continue;
                 
             ?>
 
             <hr>
+            <!--Print client message-->
             <h4><?php print $row['message'] ?></h4>
 
             <form method="POST">
             
                 <textarea name="message" placeholder="Your Answer..."></textarea> <br>
                 <input type="submit" name="new-call-submit" value="Reply!">
-                <input type="hidden" name="token" value="<?php print $row['token'] ?>">
-                <input type="hidden" name="email" value="<?php print $row['email'] ?>">
+                <input type="hidden" name="token" value="<?php print $row['token'] ?>"><!--get client token-->
+                <input type="hidden" name="email" value="<?php print $row['email'] ?>"><!--get client email-->
 
             </form>
 
         <?php endforeach;
     }
-
+    
     private function sendEmail(string $email, string | int $token): bool {
         $this -> email -> AddAddress($email, 'Gabriel');
         

@@ -11,7 +11,7 @@ class HomeModel {
         private EmailSendingI $email,
     ) {}
     
-    public function sendEmail(string $email, string $token): bool {
+    public function sendEmail(string $email, string | int $token): bool {
         $this -> email -> AddAddress($email, 'Gabriel');
         
         $this -> email -> FormatEmail([
@@ -23,7 +23,7 @@ class HomeModel {
         return $this -> email -> SendEmail();
     }
 
-    public function sendForm(string $email, string $message, string $token): bool {
+    public function sendForm(string $email, string $message, string | int $token): bool {
         $query = $this -> pdo -> connect() -> prepare(
            "INSERT INTO `tb_calls`
             VALUES (null, ?, ?, ?);"
