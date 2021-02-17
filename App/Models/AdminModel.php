@@ -20,12 +20,31 @@ use Helpers\Response;
  * - Send adm answer to the client, and also sending a email to the client
  * - Get the clients responses
  * - Answer that clients response (creating a chat).
+ * 
+ * the getCall and sendAnswer function, only works to the initial call.
 */
 class AdminModel {
     public function __construct(
         private DBConnectionI $pdo,
         private EmailSendingI $email,
     ) {}
+
+    /**
+     * - Set email address
+     * - Format the email
+     * - Try to send it, if works returns true else returns false
+    */
+    private function sendEmail(string $email, string | int $token): bool {
+        $this -> email -> AddAddress($email, 'Gabriel');
+        
+        $this -> email -> FormatEmail([
+            'subject' => 'Support System Message',
+            'body' => 'Hello, Someone answered you!' . 
+            ' message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
+        ]);
+        
+        return $this -> email -> SendEmail();
+    }
 
     /**
      * - Fetch all data of the tb_calls
@@ -81,23 +100,6 @@ class AdminModel {
     }
 
     /**
-     * - Set email address
-     * - Format the email
-     * - Try to send it, if works returns true else returns false
-    */
-    private function sendEmail(string $email, string | int $token): bool {
-        $this -> email -> AddAddress($email, 'Gabriel');
-        
-        $this -> email -> FormatEmail([
-            'subject' => 'Support System Message',
-            'body' => 'Hello, Someone answered you!' . 
-            ' message <a href="' . BASE . 'call?token=' . $token . '">link</a>'
-        ]);
-        
-        return $this -> email -> SendEmail();
-    }
-
-    /**
      * if some adm send a answer:
      * - get the client token, email and message.
      * - Insert the answer in the database, and set status to answered.
@@ -131,10 +133,16 @@ class AdminModel {
         }
     }
 
+    /**
+     * - Get clients response by checking the position and status, and order by id and in decreasing way
+     * - Display a link to check the client call
+     * - Print the client id and message
+     * - And create a form.
+    */
     public function lastInteractionsResponse() {
         $query = $this -> pdo -> connect() -> prepare(
            "SELECT * FROM `tb_call_answer`
-            WHERE position = -1 AND `status` = 0 -- STATUS: Check if the question has already been answered
+            WHERE position = -1 AND `status` = 0 -- STATUS: Check if the question has already been answered (0 = no, 1 = yes)
             ORDER BY id DESC;"
         );
 
@@ -151,14 +159,19 @@ class AdminModel {
             
                 <textarea name="message" placeholder="Your Answer..."></textarea> <br>
                 <input type="submit" name="last-call-submit" value="Reply!">
-                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                <input type="hidden" name="token" value="<?php echo $row['call_id'] ?>">
+                <input type="hidden" name="id" value="<?php echo $row['id'] ?>"><!--get client id-->
+                <input type="hidden" name="token" value="<?php echo $row['call_id'] ?>"><!--get client token-->
 
             </form>
 
         <?php endforeach;
     }
 
+    /**
+     * if some adm send a answer
+     * - Get client token, message and id
+     * - 
+    */
     public function sendLastInteractionResponse() {
         if (isset($_POST['last-call-submit'])) {
             $token = $_POST['token'];
