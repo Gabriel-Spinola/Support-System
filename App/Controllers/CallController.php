@@ -23,6 +23,7 @@ class CallController extends Controller {
     public function __construct(
         private DBConnectionI $pdo,
     ) {
+        // Get token from the url
         $this -> token = $_GET['token'] ?? '';
     }
 
