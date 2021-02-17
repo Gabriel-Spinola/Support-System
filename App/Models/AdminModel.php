@@ -153,7 +153,7 @@ class AdminModel {
         foreach ($data as $key => $row): ?>
 
             <p>Click <a href="<?php echo BASE . 'call?token=' . $row['call_id'] ?>">Here</a> to see the call</p>
-            <h4><?php print 'id: ' . $row['id'] ?> - <?php print $row['message'] ?></h4>
+            <h4><?php print 'id: ' . $row['id'] ?> - <?php print $row['message'] ?></h4><!--Display info-->
 
             <form method="POST">
             
@@ -170,21 +170,24 @@ class AdminModel {
     /**
      * if some adm send a answer
      * - Get client token, message and id
-     * - 
+     * - Get data (from database register) where token = client token
+     * - Get the client email
+     * - Set the client message status to answered
+     * - Try to execute the response query, and send a email to the client
     */
     public function sendLastInteractionResponse() {
         if (isset($_POST['last-call-submit'])) {
             $token = $_POST['token'];
             $message = $_POST['message'];
             $id = $_POST['id'];
-
+            
             $mail = $this -> pdo -> connect() -> prepare(
                "SELECT * FROM `tb_calls`
                 WHERE token = ?"
             );
 
             $mail -> execute([$token]);
-            $mail = $mail -> fetch()['email'];
+            $mail = $mail -> fetch()['email']; // get client email
         
             $this -> pdo -> connect() -> exec(
                "UPDATE `tb_call_answer`
@@ -192,6 +195,7 @@ class AdminModel {
                 WHERE id = $id;"
             );
 
+            // Sent answer to the database
             $query = $this -> pdo -> connect() -> prepare(
                "INSERT INTO `tb_call_answer`
                 VALUES (null, ?, ?, 1, 1);"
@@ -207,6 +211,7 @@ class AdminModel {
                 errMsg: 'ERROR::CALLMODEL:93::Some error has Occurred'
             );
 
+            // Refresh the page
             header('Location:' . BASE . 'admin');
         }
     }
