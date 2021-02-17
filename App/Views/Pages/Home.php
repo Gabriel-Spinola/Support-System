@@ -6,10 +6,10 @@
     $homeModel = new HomeModel(
         new MySql,
         $this -> email = new \Email(
-            host: 'smtp.gmail.com',
-            username: 'sampleemail7000@gmail.com',
-            password: 'Sample.123',
-            name: 'Gabriel'
+            host: ADM_EMAIL_HOST,
+            username: ADM_EMAIL,
+            password: ADM_EMAIL_PASSWORD,
+            name: ADM_EMAIL_NAME
         )
     );
 

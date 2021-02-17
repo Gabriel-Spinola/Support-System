@@ -20,6 +20,11 @@ const DATABASE = 'db_support_system';
 const USER = 'root';
 const PASSWORD = '';
 
+const ADM_EMAIL = 'sampleemail7000@gmail.com';
+const ADM_EMAIL_PASSWORD = 'Sample.123';
+const ADM_EMAIL_NAME = 'Gabriel';
+const ADM_EMAIL_HOST = 'smtp.gmail.com';
+
 const BASE = 'http://localhost:7000/Support-System/App/';
 
 // ---------------------------------------------------------
